@@ -26,6 +26,7 @@ public class Field extends JPanel {
         repaintTimer.start();
     }
     // Унаследованный от JPanel метод перерисовки компонента
+    @Override
     public void paintComponent(Graphics g) {
 // Вызвать версию метода, унаследованную от предка
         super.paintComponent(g);
@@ -62,7 +63,7 @@ public class Field extends JPanel {
     public synchronized void canMove() throws InterruptedException {
         // Проверяем, находится ли игра в режиме паузы
         if (paused) {
-            wait();
+            this.wait();
         }
 
     }

@@ -30,7 +30,6 @@ public class BouncingBall implements Runnable {
     // Конструктор класса BouncingBall
     public BouncingBall(Field field) {
 
-
 // через getWidth(), getHeight()
         this.field = field;
 
@@ -49,9 +48,9 @@ public class BouncingBall implements Runnable {
         color = new Color((float) random(), (float) random(),
                 (float) random());
 // Начальное положение мяча случайно
-        x = random()*(field.getSize().getWidth()-2*radius) + radius;
-        y = random()*(field.getSize().getHeight()-2*radius) + radius; // Создаѐм новый экземпляр потока, передавая аргументом
-// ссылку на класс, реализующий Runnable (т.е. на себя)
+        x = random() * (field.getSize().getWidth()-2*radius) + radius;
+        y = random() * (field.getSize().getHeight()-2*radius) + radius; // Создаѐм новый экземпляр потока, передавая аргументом
+// Ссылку на класс, реализующий Runnable (т.е. на себя)
         Thread thisThread = new Thread(this);
 
         field.addMouseListener(new MouseAdapter() {
@@ -86,6 +85,7 @@ public class BouncingBall implements Runnable {
 
     // Метод run() исполняется внутри потока. Когда он завершает работу, // то завершается и поток
     @SuppressWarnings({"BusyWait", "InfiniteLoopStatement"})
+    @Override
     public void run() {
         try {
             while(true) {
@@ -95,30 +95,41 @@ public class BouncingBall implements Runnable {
 // Достигли левой стенки, отскакиваем право
                     speedX = -speedX;
                     x = radius;
-                } else
+                }
+
+                else
                 if (x + speedX >= field.getWidth() - radius) {
                     // Достигли правой стенки, отскок влево
                     speedX = -speedX;
-                    x= Double.valueOf(field.getWidth() - radius).intValue(); } else
+                    x = Double.valueOf(field.getWidth() - radius).intValue();
+                }
+
+                else
                 if (y + speedY <= radius) {
-// Достигли верхней стенки
+                    // Достигли верхней стенки
                     speedY = -speedY;
                     y = radius;
-                } else
+                }
+
+                else
                 if (y + speedY >= field.getHeight() - radius) {
                     // Достигли нижней стенки
                     speedY = -speedY;
-                    y = Double.valueOf(field.getHeight()-radius).intValue(); } else {
+                    y = Double.valueOf(field.getHeight()-radius).intValue(); }
+
+                else {
                     // Просто смещаемся
                     x += speedX;
                     y += speedY;
                 }
+
                 Thread.sleep(16-speed);
             }
-        } catch (InterruptedException ignored) {
-
-        } }
-
+        }
+        catch (InterruptedException ignored)
+        {
+        }
+    }
 
     public void paint(Graphics2D canvas) {
         canvas.setColor(color);

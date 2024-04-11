@@ -72,8 +72,13 @@ public class MainFrame extends JFrame {
     // Главный метод приложения
     public static void main(String[] args) {
         // Создать и сделать видимым главное окно приложения
+        SynchronizedExample example = new SynchronizedExample();
+        example.increment();
+        System.out.println(example.getCount());
+
         MainFrame frame = new MainFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+//
     }
 }
